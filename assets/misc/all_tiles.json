@@ -1,0 +1,1092 @@
+{
+  "tiles": [
+    {
+      "type": "Dragon",
+      "dragonColor": "Red",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Green",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "White",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "East",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "West",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "North",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "South",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 5,
+      "isDora": true
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 5,
+      "isDora": true
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 5,
+      "isDora": true
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Red",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Green",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "White",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "East",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "West",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "North",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "South",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Red",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Green",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "White",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "East",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "West",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "North",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "South",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Red",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "Green",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Dragon",
+      "dragonColor": "White",
+      "windDirection": null,
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "East",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "West",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "North",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Wind",
+      "dragonColor": null,
+      "windDirection": "South",
+      "suit": null,
+      "number": null,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 1,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 2,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 3,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 4,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 5,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 6,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 7,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 8,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Characters",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Circles",
+      "number": 9,
+      "isDora": false
+    },
+    {
+      "type": "Suited",
+      "dragonColor": null,
+      "windDirection": null,
+      "suit": "Bamboo",
+      "number": 9,
+      "isDora": false
+    }
+  ]
+}
