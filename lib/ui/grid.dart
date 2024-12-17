@@ -34,66 +34,15 @@ class _GridState extends State<Grid> {
     String s = n.toInt().toRadixString(2).padRight(32, "0");
 
     StringBuffer sb = StringBuffer();
-    for (int i = 0 ; i < 28 ; i += 4 ) {
-        sb.write(s.substring(i, i + 4));
-        sb.write("-");
+    for (int i = 0; i < 28; i += 4) {
+      sb.write(s.substring(i, i + 4));
+      sb.write("-");
     }
 
-    return sb.toString().substring(0,34);
-
+    return sb.toString().substring(0, 34);
   }
 
-  void checkHand(int player) {
-    List<TileModel> tiles = allHands[player];
-    Map<String, int> cardCounts = <String, int>{};
-    Map<String, List<TileModel>> suitedTiles = <String, List<TileModel>>{};
-
-
-    print("=========== Player $player ===========");
-    bool isAllGreen = true;
-    bool isAllTerminal = true;
-    for (TileModel tile in tiles) {
-      int newCount = 0;
-
-      print("Hand tile ${asFormattedDecimal(tile.getAsMask())} ( ${tile.getAsMask()} )${tile.realName}  ");
-      if (cardCounts.containsKey(tile.realName)) {
-        newCount = cardCounts[tile.realName]!;
-      }
-
-      if (!tile.isGreen) {
-      isAllGreen = false;
-      }
-
-      if (!tile.isHonorOrTerminal) {
-      isAllTerminal = false;
-      }
-      if (tile.isSuited) {
-        if (!suitedTiles.containsKey(tile.suitNameOrEmpty)) {
-          suitedTiles[tile.suitNameOrEmpty] = [tile];
-        } else {
-          suitedTiles[tile.suitNameOrEmpty]!.add(tile);
-        }
-      }
-
-      cardCounts[tile.realName] = newCount + 1;
-    }
-
-    bool isAllPairs = true;
-    cardCounts.forEach((String card, int count) {
-      print("$card : $count");
-
-      if (count != 2) {
-      isAllPairs  = false;
-      }
-    });
-    print("=======================================");
-
-    print("All pairs? $isAllPairs");
-    print("All green? $isAllGreen");
-    print("All honor? $isAllTerminal");
-  }
-
-  @override
+    @override
   void initState() {
     super.initState();
     allHands = widget.tiles.allHands;
@@ -106,7 +55,8 @@ class _GridState extends State<Grid> {
     }
 
     widget.tiles.discard(player, tile);
-    // checkHand(player);
+    checkHand(player);
+
     int prevPlayer = activePlayer;
     activePlayer++;
 
@@ -115,19 +65,10 @@ class _GridState extends State<Grid> {
     }
     widget.tiles.takeNextTile(activePlayer);
 
-    // takeNext(activePlayer);
-
     setState(() {
       allDiscards[prevPlayer] = widget.tiles.discards[prevPlayer];
       allHands[player] = widget.tiles.allHands[player];
     });
-  }
-
-  void takeNext(int player){
-    widget.tiles.takeNextTile(player);
-  setState(() {
-      allHands[player] = widget.tiles.allHands[player];
-  });
   }
 
   @override
@@ -145,14 +86,9 @@ class _GridState extends State<Grid> {
     //playFieldWidth -= totalDiscardedTileHeight;
     //// playFieldWidth += 6 * smallTileWidth;
 
-    //print("1 w : $screenWidth");
-    //print("1 th : $tileHeight");
-    //print("1 tdth : $totalDiscardedTileHeight");
-
     double tileAreaWidth = 14 * (PlayerPlayfield.tileWidth + 4) + 32;
     double tileAreaHeight = PlayerPlayfield.tileHeight + 16;
     double playAreaSize = PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
-
 
 
     asFormattedDecimal(12312311234);
@@ -167,7 +103,6 @@ class _GridState extends State<Grid> {
             activePlayer: activePlayer == 0,
             alignment: Alignment.topCenter,
             onTileTapped: (int i) {
-            print("Tapped 0, $i");
               discard(0, i);
             },
             tiles: allHands[0],

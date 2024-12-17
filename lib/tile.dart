@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -6,31 +5,31 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tile.g.dart';
 
 enum Type {
-  Dragon,
-  Suited,
-  Wind,
+  dragon,
+  suited,
+  wind,
 }
 
 enum DragonColor {
-  Green,
-  Red,
-  White,
+  green,
+  red,
+  white,
 }
 
 enum WindDirection {
-  East,
-  South,
-  North,
-  West,
+  east,
+  south,
+  north,
+  west,
 }
 
 enum Suit {
-  Bamboo,
-  Characters,
-  Circles,
+  bamboo,
+  characters,
+  circles,
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class TileModel {
   final Type type;
   final DragonColor? dragonColor;
@@ -52,7 +51,7 @@ class TileModel {
 
   TileModel.dragon({
     required this.dragonColor,
-  })  : type = Type.Dragon,
+  })  : type = Type.dragon,
         windDirection = null,
         suit = null,
         number = 0,
@@ -60,7 +59,7 @@ class TileModel {
 
   TileModel.wind({
     required this.windDirection,
-  })  : type = Type.Wind,
+  })  : type = Type.wind,
         dragonColor = null,
         suit = null,
         number = 0,
@@ -69,24 +68,66 @@ class TileModel {
   TileModel.suited({
     required this.suit,
     required this.number,
-    required this.isDora,
-  })  : type = Type.Suited,
+    this.isDora = false,
+  })  : type = Type.suited,
         windDirection = null,
         dragonColor = null;
 
+
+  static bool isPair(TileModel first, TileModel other) {
+    return first.realName == other.realName;
+  }
+
+  static bool isTriplet(TileModel first, TileModel second, TileModel third) {
+    return first.realName == second.realName && second.realName == third.realName;
+  }
+
+  static bool isSequence(TileModel first, TileModel second, TileModel third) {
+// Make sure it's actually a suit
+    if (first.type != Type.suited || second.type != Type.suited || third.type != Type.suited) {
+      return false;
+    }
+
+// Make sure it's the same suit
+    if (first.suit != second.suit || second.suit != third.suit) {
+      return false;
+    }
+
+    // For any 3 sequential digits, the distance between them will always be 1,2,1 ( absolute value)
+    // Lowest number is 2 smaller than the largest
+    // Lowest number is 1 smaller than the middle
+    // Highest number is 1 larger than the middle
+    int diff1 = (first.number - second.number).abs();
+    int diff2 = (first.number - third.number).abs();
+    int diff3 = (second.number - third.number).abs();
+
+    if (diff1 == 2) {
+      return diff2 == 1 && diff3 == 1;
+    }
+
+    if (diff2 == 2) {
+      return diff1 == 1 && diff3 == 1;
+    }
+
+    if (diff3 == 2) {
+      return diff1 == 1 && diff2 == 1;
+    }
+
+    return false;
+  }
+
+  static getIsPartOfSequence(TileModel first, TileModel other) {
+    if (first.type != Type.suited || other.type != Type.suited) {
+      return false;
+    }
+    if (first.suit != other.suit) {
+      return false;
+    }
+
+    return ((first.number - other.number).abs()) == 1;
+  }
+
   num getAsMask() {
-    //  Drg r, g, w, Wnd E, S, N W Suit B ch Ci dora 0 1 2 3 4 5 6 7 8 9 green
-    //   1  1  0   0  0  0  0  0 0  0   0  0  0  0   0 1 2 3 4 5 6 7 8 9  0
-    //   1  0  1   0  0  0  0  0 0  0   0  0  0  0                        1
-    //   0  0  0   0  0  0  0  0 0  0   1  0  0  0    0 0 1 0 0 0 0 0 0 0 01
-
-    //   0011 0000 0000 0000 0123 4567 890
-
-    //   0000  0000 0010  0000 1000 0000 01
-
-    //  Drgw WESN WSBM S123 4567 89d
-    //  1100 0000 0000 0000 0000 000
-
     // D = Dragon
     // r = red
     // g = green
@@ -96,7 +137,7 @@ class TileModel {
     //  Drgw Wesn w--- Sbcs 1234 5678 9--- d---
     //  1100 0000 0000 0000 0000 0000 0000 0000
     num dragon = pow(2, 31);
-    
+
     num redDragon = dragon + pow(2, 30);
     num greenDragon = dragon + pow(2, 29);
     num whiteDragon = dragon + pow(2, 28);
@@ -112,71 +153,48 @@ class TileModel {
     num characters = suited + pow(2, 17);
     num circles = suited + pow(2, 16);
 
-//   num num1 = pow(2, 15);
-//   num num2 = pow(2, 14);
-//   num num3 = pow(2, 13);
-//   num num4 = pow(2, 12);
-//
-//   num num5 = pow(2, 11);
-//   num num6 = pow(2, 10);
-//   num num7 = pow(2, 9);
-//   num num8 = pow(2, 8);
-//
-//   num num9 = pow(2, 7);
-//   num dora = pow(2, 4);
-
-    // Dragons - 0001 0000
-    // Red 0001 1000
-    // Green 0001 0100
-    // Blue 0001 0010
     switch (type) {
-      case Type.Dragon:
-        // 0001 1000
+      case Type.dragon:
         switch (dragonColor) {
-          case DragonColor.Green:
+          case DragonColor.green:
             return greenDragon;
-          // 0001 1000
-          // mask |= 8;
-          case DragonColor.Red:
+          case DragonColor.red:
             return redDragon;
-          // 0001 0100
-          case DragonColor.White:
+          case DragonColor.white:
             return whiteDragon;
           case null:
             return 0;
         }
-      case Type.Wind:
+      case Type.wind:
         switch (windDirection) {
-          case WindDirection.East:
+          case WindDirection.east:
             return east;
-          case WindDirection.South:
+          case WindDirection.south:
             return south;
-          case WindDirection.North:
+          case WindDirection.north:
             return north;
-          case WindDirection.West:
+          case WindDirection.west:
             return west;
           case null:
             return 0;
         }
-      case Type.Suited:
+      case Type.suited:
         num numberAsMask = pow(2, (16 - number));
         if (isDora) {
           numberAsMask += pow(2, 4);
         }
         switch (suit) {
-          case Suit.Bamboo:
+          case Suit.bamboo:
             // 1 == 2 ^ 15
             // 2 == 2 ^ 14
             // ...
             // 9 == 2 ^ 7
 
             return bamboo + numberAsMask;
-          case Suit.Characters:
+          case Suit.characters:
             return characters + numberAsMask;
-          // TODO: Handle this case.
-          case Suit.Circles:
+          case Suit.circles:
             return circles + numberAsMask;
-          // TODO: Handle this case.
 
           case null:
             return 0;
@@ -184,21 +202,21 @@ class TileModel {
     }
   }
 
-  bool get isTerminal => type == Type.Suited && (number == 1 || number == 2);
+  bool get isTerminal => type == Type.suited && (number == 1 || number == 2);
 
-  bool get isHonorTile => type == Type.Dragon || type == Type.Wind;
+  bool get isHonorTile => type == Type.dragon || type == Type.wind;
 
   bool get isHonorOrTerminal => isHonorTile || isTerminal;
 
-  bool get isSuited => type == Type.Suited;
-  String get suitNameOrEmpty => type == Type.Suited && suit != null ? suit.toString() : "";
-  bool get isDragon => type == Type.Dragon;
+  bool get isSuited => type == Type.suited;
+  String get suitNameOrEmpty => type == Type.suited && suit != null ? suit.toString() : "";
+  bool get isDragon => type == Type.dragon;
   bool get isGreen {
     switch (type) {
-      case Type.Dragon:
-        return dragonColor == DragonColor.Green;
-      case Type.Suited:
-        if (suit != Suit.Bamboo) {
+      case Type.dragon:
+        return dragonColor == DragonColor.green;
+      case Type.suited:
+        if (suit != Suit.bamboo) {
           return false;
         }
 
@@ -207,55 +225,45 @@ class TileModel {
         }
 
         return number == 2 || number == 3 || number == 4 || number == 6 || number == 8;
-      case Type.Wind:
+      case Type.wind:
         return false;
     }
-
-    if (type != Type.Dragon && type != Type.Suited) {
-      return false;
-    }
-
-    if (type == Type.Dragon && type != Type.Suited) {
-      return false;
-    }
-    // (type == (Type.Dragon && dragonColor == DragonColor.Green);
-    return false;
   }
 
   String get realName {
     switch (type) {
-      case Type.Dragon:
+      case Type.dragon:
         switch (dragonColor) {
-          case DragonColor.Green:
+          case DragonColor.green:
             return "Hatsu";
-          case DragonColor.Red:
+          case DragonColor.red:
             return "Chun";
-          case DragonColor.White:
+          case DragonColor.white:
             return "Haku";
           case null:
             return "";
         }
 
-      case Type.Suited:
+      case Type.suited:
         switch (suit) {
-          case Suit.Bamboo:
+          case Suit.bamboo:
             return "Sou$number";
-          case Suit.Characters:
+          case Suit.characters:
             return "Man$number";
-          case Suit.Circles:
+          case Suit.circles:
             return "Pin$number";
           case null:
             return "";
         }
-      case Type.Wind:
+      case Type.wind:
         switch (windDirection) {
-          case WindDirection.East:
+          case WindDirection.east:
             return "Ton";
-          case WindDirection.South:
+          case WindDirection.south:
             return "Nan";
-          case WindDirection.North:
+          case WindDirection.north:
             return "Pei";
-          case WindDirection.West:
+          case WindDirection.west:
             return "Shaa";
           case null:
             return "";
@@ -265,11 +273,11 @@ class TileModel {
 
   String get path {
     switch (type) {
-      case Type.Dragon:
+      case Type.dragon:
         return "dragon_$realName.png";
-      case Type.Wind:
+      case Type.wind:
         return "wind_$realName.png";
-      case Type.Suited:
+      case Type.suited:
         return "suit_$realName${isDora ? "_Dora" : ""}.png";
     }
   }

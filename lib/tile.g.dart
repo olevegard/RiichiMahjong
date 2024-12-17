@@ -9,44 +9,44 @@ part of 'tile.dart';
 TileModel _$TileModelFromJson(Map<String, dynamic> json) => TileModel(
       type: $enumDecode(_$TypeEnumMap, json['type']),
       dragonColor:
-          $enumDecodeNullable(_$DragonColorEnumMap, json['dragonColor']),
+          $enumDecodeNullable(_$DragonColorEnumMap, json['dragon_color']),
       windDirection:
-          $enumDecodeNullable(_$WindDirectionEnumMap, json['windDirection']),
+          $enumDecodeNullable(_$WindDirectionEnumMap, json['wind_direction']),
       suit: $enumDecodeNullable(_$SuitEnumMap, json['suit']),
       number: (json['number'] as num?)?.toInt() ?? 0,
-      isDora: json['isDora'] as bool? ?? false,
+      isDora: json['is_dora'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$TileModelToJson(TileModel instance) => <String, dynamic>{
       'type': _$TypeEnumMap[instance.type]!,
-      'dragonColor': _$DragonColorEnumMap[instance.dragonColor],
-      'windDirection': _$WindDirectionEnumMap[instance.windDirection],
+      'dragon_color': _$DragonColorEnumMap[instance.dragonColor],
+      'wind_direction': _$WindDirectionEnumMap[instance.windDirection],
       'suit': _$SuitEnumMap[instance.suit],
       'number': instance.number,
-      'isDora': instance.isDora,
+      'is_dora': instance.isDora,
     };
 
 const _$TypeEnumMap = {
-  Type.Dragon: 'Dragon',
-  Type.Suited: 'Suited',
-  Type.Wind: 'Wind',
+  Type.dragon: 'dragon',
+  Type.suited: 'suited',
+  Type.wind: 'wind',
 };
 
 const _$DragonColorEnumMap = {
-  DragonColor.Green: 'Green',
-  DragonColor.Red: 'Red',
-  DragonColor.White: 'White',
+  DragonColor.green: 'green',
+  DragonColor.red: 'red',
+  DragonColor.white: 'white',
 };
 
 const _$WindDirectionEnumMap = {
-  WindDirection.East: 'East',
-  WindDirection.South: 'South',
-  WindDirection.North: 'North',
-  WindDirection.West: 'West',
+  WindDirection.east: 'east',
+  WindDirection.south: 'south',
+  WindDirection.north: 'north',
+  WindDirection.west: 'west',
 };
 
 const _$SuitEnumMap = {
-  Suit.Bamboo: 'Bamboo',
-  Suit.Characters: 'Characters',
-  Suit.Circles: 'Circles',
+  Suit.bamboo: 'bamboo',
+  Suit.characters: 'characters',
+  Suit.circles: 'circles',
 };
