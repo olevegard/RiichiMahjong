@@ -9,12 +9,10 @@ void main() {
 
   Tiles tiles = Tiles();
 
-print("asdasdasda");
-
     for (TileModel t in tiles.allHands[0]) {
         print(t.realName);
     }
-    print()
+    print("");
 
 
     // checkHand(0);

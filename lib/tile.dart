@@ -40,6 +40,7 @@ class TileModel {
   @JsonKey(defaultValue: false)
   final bool isDora;
 
+
   TileModel({
     required this.type,
     required this.dragonColor,
@@ -227,6 +228,47 @@ class TileModel {
         return number == 2 || number == 3 || number == 4 || number == 6 || number == 8;
       case Type.wind:
         return false;
+    }
+  }
+
+String get shortName {
+    switch (type) {
+      case Type.dragon:
+        switch (dragonColor) {
+          case DragonColor.green:
+            return "Ha";
+          case DragonColor.red:
+            return "Ch";
+          case DragonColor.white:
+            return "Ha";
+          case null:
+            return "";
+        }
+
+      case Type.suited:
+        switch (suit) {
+          case Suit.bamboo:
+            return "S$number";
+          case Suit.characters:
+            return "M$number";
+          case Suit.circles:
+            return "P$number";
+          case null:
+            return "";
+        }
+      case Type.wind:
+        switch (windDirection) {
+          case WindDirection.east:
+            return "To";
+          case WindDirection.south:
+            return "Na";
+          case WindDirection.north:
+            return "Pe";
+          case WindDirection.west:
+            return "Sh";
+          case null:
+            return "";
+        }
     }
   }
 

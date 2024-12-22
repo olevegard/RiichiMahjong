@@ -4,8 +4,421 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:riichi/all_tiles.dart';
+import 'package:riichi/hand.dart';
 import 'package:riichi/tile.dart';
 import 'package:riichi/util.dart';
+
+class Groups {
+  final List<Repeat> repeats;
+  final List<Sequence> sequences;
+
+  Groups(this.repeats, this.sequences);
+
+  void printAll() {
+    print("Singles");
+    for (Repeat r in repeats) {
+      if (r.count == 1) {
+        print("${r.indices}  ${r.tile.realName}");
+      }
+    }
+
+    print("Pairs");
+    for (Repeat r in repeats) {
+      if (r.count == 2) {
+        print("${r.indices}  ${r.tile.realName}");
+      }
+    }
+
+    print("Triplets + quads");
+    for (Repeat r in repeats) {
+      if (r.count > 2) {
+        print("${r.indices}  ${r.tile.realName}");
+      }
+    }
+
+    print("Sequences");
+    for (Sequence seq in sequences) {
+      print("${seq.indices} ${seq.suit.toString().substring(5)} ${seq.startNumber}");
+    }
+  }
+}
+
+class HandData {
+  List<Repeat> possibleRepeats = <Repeat>[];
+  List<Sequence> possibleSequences = <Sequence>[];
+
+  List<Repeat> appliedRepeats = <Repeat>[];
+  List<Sequence> appliedSequences = <Sequence>[];
+
+  List<TileModel> tiles = <TileModel>[];
+
+  HandData.appliedRepeat(
+    this.tiles,
+    this.possibleRepeats,
+    this.appliedRepeats,
+    List<Sequence> initialPossibleSequences,
+    List<Sequence> initialAppliedSequences,
+  ) {
+    possibleSequences.addAll(initialPossibleSequences);
+    appliedSequences.addAll(initialAppliedSequences);
+  }
+
+  HandData.appliedSequence(
+    this.tiles,
+    this.possibleSequences,
+    this.appliedSequences,
+    List<Repeat> initialPossibleRepeats,
+    List<Repeat> initialAppliedRepeats,
+  ) {
+    possibleRepeats.addAll(initialPossibleRepeats);
+    appliedRepeats.addAll(initialAppliedRepeats);
+  }
+
+  HandData.initial(
+    List<TileModel> initialTiles,
+    List<Repeat> initialRepeats,
+    List<Sequence> initialSequences,
+  ) {
+    tiles.addAll(initialTiles);
+    possibleRepeats.addAll(initialRepeats);
+    possibleSequences.addAll(initialSequences);
+  }
+
+  HandData.deepCopy(
+    HandData other,
+  ) {
+    tiles.addAll(other.tiles);
+    possibleRepeats.addAll(other.possibleRepeats);
+    possibleSequences.addAll(other.possibleSequences);
+
+    appliedRepeats.addAll(other.appliedRepeats);
+    appliedSequences.addAll(other.appliedSequences);
+  }
+
+/*
+HandData.apply(
+    this.tiles,
+    this.initialRepeats,
+    List<Sequence> initialSequences,
+  ) {
+    tiles.addAll(initialTiles);
+    possibleRepeats.addAll(initialRepeats);
+    possibleSequences.addAll(initialSequences);
+  }
+  */
+
+  int get repeatsWithMoreThanOne {
+    int count = 0;
+    for (Repeat r in possibleRepeats) {
+      if (r.count > 1) {
+        ++count;
+      }
+    }
+
+    return count;
+  }
+
+  int get repeatsAndSequences {
+    int count = 0;
+    for (Repeat r in possibleRepeats) {
+      if (r.count > 1) {
+        ++count;
+      }
+    }
+
+    return count + possibleSequences.length;
+  }
+
+  bool get isReady => tiles.length == 0;
+
+  HandData applyRepeatOrSequence(int index) {
+    int countRepeat = repeatsWithMoreThanOne;
+
+    if (index < countRepeat) {
+      return applyRepeat(index);
+    }
+    if (index < (countRepeat + possibleSequences.length)) {
+      return applySequence(index - countRepeat);
+    }
+
+    throw "Index out of range";
+  }
+
+  HandData applyRepeat(int index) {
+    List<Repeat> repeats = possibleRepeats.where((Repeat r) => r.count > 1).toList();
+    Repeat r = repeats[index];
+
+    List<TileModel> newTiles = [
+      for (int i = 0; i < tiles.length; ++i)
+        if (!r.indices.contains(i)) tiles[i]
+    ];
+
+    List<Repeat> newPossibleRepeats = [
+      for (int i = 0; i < possibleRepeats.length; ++i)
+        if (i != index) possibleRepeats[i]
+    ];
+
+    List<Repeat> newAppliedRepeats = [
+      ...appliedRepeats,
+      r,
+    ];
+
+    HandData newHand = HandData.appliedRepeat(
+      newTiles,
+      newPossibleRepeats,
+      newAppliedRepeats,
+      possibleSequences,
+      appliedSequences,
+    );
+
+    newHand.calc();
+
+    print(
+        "-->Rep $index, ${r.count} x ${r.tile.realName} @ ${r.startIndex}\n---->From : ${asString()}\n---->To   : ${newHand.asString()}");
+
+    return newHand;
+  }
+
+  HandData applySequence(int index) {
+    // List<Repeat> repeats = possibleRepeats.where((Repeat r) => r.count > 1).toList();
+    Sequence s = possibleSequences[index];
+
+    List<TileModel> newTiles = [
+      for (int i = 0; i < tiles.length; ++i)
+        if (!s.indices.contains(i)) tiles[i]
+    ];
+
+    List<Sequence> newPossibleSequences = [
+      for (int i = 0; i < possibleSequences.length; ++i)
+        if (i != index) possibleSequences[i]
+    ];
+
+    List<Sequence> newAppliedSequences = [
+      ...appliedSequences,
+      s,
+    ];
+
+    HandData newHand = HandData.appliedSequence(
+      newTiles,
+      newPossibleSequences,
+      newAppliedSequences,
+      possibleRepeats,
+      appliedRepeats,
+    );
+
+    newHand.calc();
+
+    print("-->Seq $index, ${s.realName} @ ${s.indices}\n---->From : ${asString()}\n---->To   : ${newHand.asString()}");
+
+    return newHand;
+  }
+
+  void _applySequence(int index) {
+    Sequence s = possibleSequences[index];
+
+    print("Removing sequence of ${s.realName} in ${s.indices}");
+
+    for (int i in s.indices.reversed) {
+      tiles.removeAt(i);
+    }
+
+    possibleSequences.removeAt(index);
+    appliedSequences.add(s);
+
+    calc();
+  }
+
+  String asString() {
+    String str = "";
+    appliedRepeats.sort((Repeat r1, Repeat r2) => (r2.tile.getAsMask() - r1.tile.getAsMask()).toInt());
+    for (Repeat r in appliedRepeats) {
+      str += "${r.asString} ";
+    }
+
+    for (Sequence s in appliedSequences) {
+      str += "${s.asString} ";
+    }
+
+    for (TileModel t in tiles) {
+      str += "${t.realName} ";
+    }
+
+    return str;
+  }
+
+  String asShortString() {
+    String str = "";
+    appliedRepeats.sort((Repeat r1, Repeat r2) => (r2.tile.getAsMask() - r1.tile.getAsMask()).toInt());
+    for (Repeat r in appliedRepeats) {
+      str += "${r.asShortString} ";
+    }
+
+    for (Sequence s in appliedSequences) {
+      str += "${s.asShortString} ";
+    }
+
+    for (TileModel t in tiles) {
+      str += "--${t.shortName} ";
+    }
+
+    return str.trimRight();
+  }
+
+  void printHand() {
+    print(asShortString());
+  }
+
+  void printHandFull() {
+    print(asString());
+  }
+
+  static void printRepeats(String heading, int n, List<Repeat> reps) {
+    String s = "";
+    for (Repeat r in reps) {
+      if (r.count == n) {
+        s += "->${r.indices}  ${r.tile.realName}\n";
+      }
+    }
+
+    if (s.isEmpty) {
+      return;
+    }
+
+    print("$heading groupings of $n\n${s.trimRight()}");
+  }
+
+  void printAll() {
+    print("Tiles");
+    String s = "";
+
+    for (TileModel t in tiles) {
+      s += "${t.realName} ";
+    }
+
+    print("->$s");
+
+    printRepeats("possible", 1, possibleRepeats);
+    printRepeats("possible", 2, possibleRepeats);
+    printRepeats("possible", 3, possibleRepeats);
+    printRepeats("possible", 4, possibleRepeats);
+
+    print("Possible Sequences");
+    for (Sequence seq in possibleSequences) {
+      print("->${seq.indices} ${seq.suit.toString().substring(5)} ${seq.startNumber}");
+    }
+
+    printRepeats("applied", 1, appliedRepeats);
+    printRepeats("applied", 2, appliedRepeats);
+    printRepeats("applied", 3, appliedRepeats);
+    printRepeats("applied", 4, appliedRepeats);
+  }
+
+  static Groups findAllPossibleGroups(List<TileModel> tiles) {
+    List<Repeat> repeats = findRepeats(tiles);
+    List<Sequence> sequences = findAllSequences(repeats);
+
+    return Groups(repeats, sequences);
+  }
+
+  static List<Repeat> findRepeats(List<TileModel> tiles) {
+    List<Repeat> repeats = [];
+    for (int i = 0; i < tiles.length; i++) {
+      int j = i + 1;
+      for (; j < tiles.length; j++) {
+        if (tiles[i].realName == tiles[j].realName) {
+          continue;
+        } else {
+          break;
+        }
+      }
+
+      int count = j - i;
+      repeats.add(
+        Repeat(
+          startIndex: i,
+          count: count,
+          tile: tiles[i],
+        ),
+      );
+
+      i = j - 1;
+
+      if (i == tiles.length - 1) {
+        break;
+      }
+    }
+
+    return repeats;
+  }
+
+  static List<int> calcRepeatsByIndex(List<Repeat> repeats, int n) {
+    // How many instances of each number in tiles
+    List<int> repeatsByIndex = List<int>.filled(n, 0);
+    int padding = 0;
+    for (int i = 0; i < repeats.length; ++i) {
+      for (int j = 0; j < repeats[i].count; ++j) {
+        print("i $i, j $j, p $padding c ${repeats[i].count}");
+        repeatsByIndex[i + j + padding] = repeats[i].count;
+      }
+      padding += (repeats[i].count - 1);
+    }
+
+    return repeatsByIndex;
+  }
+
+  static List<Sequence> findAllSequences(List<Repeat> repeats) {
+    List<Sequence> sequences = [];
+    for (int i = 0; i < repeats.length - 2; ++i) {
+      Repeat seq1 = repeats[i];
+      Repeat seq2 = repeats[i + 1];
+      Repeat seq3 = repeats[i + 2];
+
+      if (TileModel.isSequence(seq1.tile, seq2.tile, seq3.tile)) {
+        int count = MathUtil.min3(seq1.count, seq2.count, seq3.count).toInt();
+
+        for (int first = 0; first < seq1.count; ++first) {
+          for (int mid = 0; mid < seq2.count; ++mid) {
+            for (int last = 0; last < seq3.count; ++last) {
+              sequences.add(
+                Sequence(
+                  suit: seq1.tile.suit!,
+                  indices: [seq1.startIndex + first, seq2.startIndex + mid, seq3.startIndex + last],
+                  startNumber: seq1.tile.number,
+                  count: count,
+                ),
+              );
+            }
+          }
+        }
+      }
+    }
+
+    return sequences;
+  }
+
+  static List<int> findAllPossibleSequencesByIndex(List<Sequence> sequences, int n) {
+    List<int> sequencesByIndex = List<int>.filled(n, 0);
+    for (Sequence seq in sequences) {
+      for (int index in seq.indices) {
+        sequencesByIndex[index]++;
+      }
+      print("Seq ${seq.indices}, ${seq.count} @ ${seq.startNumber}, ${seq.startNumber + 1}, ${seq.startNumber + 2}");
+    }
+
+    return sequencesByIndex;
+  }
+
+  void removeSequence(int i) {}
+
+  void removeRepeat(int i) {}
+
+  // List<int> repeatByIndex = calcRepeatsByIndex(repeats, tiles.length);
+  // List<int> sequencesPerIndex = findAllPossibleSequencesByIndex(sequences, tiles.length);
+  void calc() {
+    possibleRepeats = HandData.findRepeats(tiles);
+    possibleSequences = findAllSequences(possibleRepeats);
+  }
+}
 
 enum SequenceType {
   single,
@@ -16,13 +429,74 @@ enum SequenceType {
   none,
 }
 
-class Sequence {
+class Repeat {
   final int count;
+  final int startIndex;
   final TileModel tile;
 
-  Sequence({
+  List<int> get indices => <int>[for (int i = 0; i < count; ++i) startIndex + i];
+
+  String get asString {
+    return "( $count x ${tile.realName} ) ";
+  }
+
+  String get asShortString {
+    return "${count}x${tile.shortName}";
+  }
+
+  Repeat({
     required this.count,
+    required this.startIndex,
     required this.tile,
+  });
+}
+
+class Sequence {
+  final int startNumber;
+  final List<int> indices;
+  final int count;
+  final Suit suit;
+
+  String get realName {
+    switch (suit) {
+      case Suit.bamboo:
+        return "Sou $startNumber";
+      case Suit.characters:
+        return "Man $startNumber";
+      case Suit.circles:
+        return "Pin $startNumber";
+    }
+  }
+
+  String get asShortString {
+    switch (suit) {
+      case Suit.bamboo:
+        return "->S$startNumber";
+      case Suit.characters:
+        return "->M$startNumber";
+      case Suit.circles:
+        return "->P$startNumber";
+    }
+  }
+
+  String get asString {
+    String s = "";
+    switch (suit) {
+      case Suit.bamboo:
+        s = "Sou";
+      case Suit.characters:
+        s = "Man";
+      case Suit.circles:
+        s = "Pin";
+    }
+    return "( $s $startNumber-${startNumber + 2} )";
+  }
+
+  Sequence({
+    required this.startNumber,
+    required this.indices,
+    required this.suit,
+    required this.count,
   });
 }
 
@@ -100,56 +574,128 @@ class Tiles {
     return SequenceType.none;
   }
 
+  static List<HandData> doAllRepeats(HandData hand) {
+    return [
+      for (int i = 0; i < hand.repeatsWithMoreThanOne; ++i) hand.applyRepeat(i),
+    ];
+  }
+
+  static void doAllRepeatsRecursive(HandData hand, List<HandData> allHands, Map<String, HandData> found) {
+    if (hand.repeatsAndSequences == 0) {
+      print("Added ${hand.asString()}");
+      allHands.add(hand);
+      found[hand.asShortString()] = hand;
+      return;
+    }
+
+    // Only one possibility left, add it here to avoid uneccessart computation
+    /*
+    if (hand.repeatsWithMoreThanOne == 1) {
+      print("Added second ot last ${hand.asString()}");
+      allHands.add(hand.applyRepeat(0));
+      found[hand.asShortString()] = hand;
+      return;
+    }
+    */
+
+    print("New recursive loop, ${allHands.length}");
+    for (int i = 0; i < hand.repeatsAndSequences; ++i) {
+        doAllRepeatsRecursive(hand.applyRepeatOrSequence(i), allHands, found);
+    }
+  }
+
   static void doCheckHand(List<TileModel> tiles) {
+    Groups initialGroups = HandData.findAllPossibleGroups(tiles);
+    HandData initialHand = HandData.initial(
+      tiles,
+      initialGroups.repeats,
+      initialGroups.sequences,
+    );
+
+    print("=" * 33 + " Initial hand " + "=" * 33);
+    initialHand.printHandFull();
+    print("=" * 80);
+
+/*
+    List<HandData> afterFirstPass = doAllRepeats(initialHand);
+
+    for (HandData hand in afterFirstPass) {
+      hand.printHand();
+    }
+    */
+
+    print("Big thing");
+    List<HandData> allHands = [];
+    Map<String, HandData> hands = <String, HandData>{};
+
+    doAllRepeatsRecursive(initialHand, allHands, hands);
+    print("Big thing over, perm count ${allHands.length}");
+
+    initialHand.printHandFull();
+    for (HandData hand in hands.values) {
+      hand.printHand();
+    }
+
+    // List<List<HandData>> allPermutations = [<HandData>[]];
+    // allPermutations.add(afterFirstPass);
+
+/*
+    possibleSequences.applySequence(1);
+    possibleSequences.printHand();
+
+    possibleSequences.applyRepeat(1);
+    possibleSequences.printHand();
+
+    possibleSequences.applyRepeat(0);
+    possibleSequences.printHand();
+    */
     Map<String, int> cardCounts = <String, int>{};
     Map<String, List<TileModel>> suitedTiles = <String, List<TileModel>>{};
 
     bool isAllGreen = true;
     bool isAllTerminal = true;
 
-    final List<Sequence> sequences = <Sequence>[];
+    return
 
-    for (int i = 0; i < tiles.length; i++) {
-      int j = i + 1;
-      for (; j < tiles.length; j++) {
-        if (tiles[i].realName == tiles[j].realName) {
-          continue;
-        } else {
-          print("->Not Match @ $j");
-          break;
-        }
-      }
-
-      sequences.add(
-        Sequence(
-          count: j - i,
-          tile: tiles[i],
-        ),
-      );
-      print("${Tiles.getSequenceType(i, j)}");
-      i = j - 1;
-
-      if (i == tiles.length - 1) {
-        print("Reached end");
-        break;
-      }
+        /*
+    int removed = 0;
+    for (int i in possibleSequences.repeats[1].indices) {
+      tiles.removeAt(i - removed);
+      ++removed;
     }
 
-    for (int i = 0; i < sequences.length - 2; ++i) {
-      Sequence seq = sequences[i];
-      Sequence seq2 = sequences[i + 1];
-      Sequence seq3 = sequences[i + 2];
-      print("${i.toString().padRight(2)} : ${seq.count} x ${seq.tile.realName.padRight(5)} - " +
-          "${seq2.count} x ${seq2.tile.realName.padRight(5)} - " +
-          "${seq3.count} x ${seq3.tile.realName.padRight(5)}");
-
-
-        if (TileModel.isSequence(seq.tile, seq2.tile, seq3.tile)) {
-        print("->Sequence x ${MathUtil.min3(seq.count, seq2.count, seq3.count)}!");
-        }
-
-
+    for (TileModel t in tiles) {
+      print(t.realName);
     }
+    */
+
+        print("=========================================");
+
+    // possibleSequences = HandData(tiles).calc;
+    // initialHand.printAll();
+
+    // final List<Repeat> repeats = <Repeat>[];
+
+    // 1 2 3 4 5
+    // T T T T P
+    // T T T P T
+    // T T P T T
+    // T P T T T
+    // P T T T T
+
+/*
+    for (int i = 0; i < repeats.length; ++i) {
+      Repeat r = repeats[i];
+
+      print("Repeat ${r.startIndex} - ${r.startIndex + r.count} x ${r.tile.realName}");
+    }
+    */
+
+    // Make copies of the entire hand and do
+    // 1. Find all sequences and repeats
+    // 2. Remove one sequenxe ( or repeat if no sequence)
+    // 3. If count of remaining tiles == 0 -> Save the removed sequences and repeats as a possible solution
+    // 4. Go to 1
 
     return;
     for (int i = 0; i < tiles.length - 1; /*++i*/) {
@@ -352,3 +898,16 @@ class Tiles {
     return handTiles;
   }
 }
+
+/*
+// How many instances of each number in tiles
+    List<int> repeatByIndex = List<int>.filled(tiles.length, 0);
+    int padding = 0;
+    for (int i = 0; i < repeats.length; ++i) {
+      for (int j = 0; j < repeats[i].count; ++j) {
+        print("i $i, j $j, p $padding c ${repeats[i].count}");
+        repeatByIndex[i + j + padding] = repeats[i].count;
+      }
+      padding += (repeats[i].count - 1);
+    }
+    */
