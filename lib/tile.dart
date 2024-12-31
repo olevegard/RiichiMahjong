@@ -40,6 +40,8 @@ class TileModel {
   @JsonKey(defaultValue: false)
   final bool isDora;
 
+  @JsonKey(defaultValue: 4)
+  final int totalCount;
 
   TileModel({
     required this.type,
@@ -48,6 +50,7 @@ class TileModel {
     required this.suit,
     required this.number,
     required this.isDora,
+    required this.totalCount,
   });
 
   TileModel.dragon({
@@ -56,6 +59,7 @@ class TileModel {
         windDirection = null,
         suit = null,
         number = 0,
+        totalCount = 4,
         isDora = false;
 
   TileModel.wind({
@@ -64,6 +68,7 @@ class TileModel {
         dragonColor = null,
         suit = null,
         number = 0,
+        totalCount = 4,
         isDora = false;
 
   TileModel.suited({
@@ -72,20 +77,28 @@ class TileModel {
     this.isDora = false,
   })  : type = Type.suited,
         windDirection = null,
+        // 4 of each except 5, which has 3 regular and 1 dora
+        totalCount = number != 5
+            ? 4
+            : isDora
+                ? 1
+                : 3,
         dragonColor = null;
-
 
   static bool isPair(TileModel first, TileModel other) {
     return first.realName == other.realName;
   }
 
   static bool isTriplet(TileModel first, TileModel second, TileModel third) {
-    return first.realName == second.realName && second.realName == third.realName;
+    return first.realName == second.realName &&
+        second.realName == third.realName;
   }
 
   static bool isSequence(TileModel first, TileModel second, TileModel third) {
 // Make sure it's actually a suit
-    if (first.type != Type.suited || second.type != Type.suited || third.type != Type.suited) {
+    if (first.type != Type.suited ||
+        second.type != Type.suited ||
+        third.type != Type.suited) {
       return false;
     }
 
@@ -210,7 +223,8 @@ class TileModel {
   bool get isHonorOrTerminal => isHonorTile || isTerminal;
 
   bool get isSuited => type == Type.suited;
-  String get suitNameOrEmpty => type == Type.suited && suit != null ? suit.toString() : "";
+  String get suitNameOrEmpty =>
+      type == Type.suited && suit != null ? suit.toString() : "";
   bool get isDragon => type == Type.dragon;
   bool get isGreen {
     switch (type) {
