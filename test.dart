@@ -1,9 +1,9 @@
-// ignore_for_file: avoid_print
-
 import 'package:riichi/tile.dart';
 import 'package:riichi/tiles.dart';
+import 'package:riichi/util/logger.dart';
 
 void main() {
+  Log.Init();
   List<TileModel> allTiles = <TileModel>[];
 
   for (int i = 0; i < 4; ++i) {
