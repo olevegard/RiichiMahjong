@@ -70,38 +70,24 @@ class HandWithTiles extends StatelessWidget {
         children: [
           for (int i = 0; i < tiles.length; ++i)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
+              padding: i < 13
+                  ? const EdgeInsets.symmetric(
+                      horizontal: 2,
+                    )
+                  : const EdgeInsets.only(
+                      left: 16,
+                    ),
               child: GestureDetector(
-                onTap: () {
-                  onTileTapped(i);
-                },
-                child: TileWidget(
-                  tile: tiles[i],
-                  width: width,
-                  height: height,
-                ),
-              ),
+                  onTap: () {
+                    onTileTapped(i);
+                  },
+                  child: TileWidget(
+                    tile: tiles[i],
+                    width: width,
+                    height: height,
+                    isVisible: isVisible,
+                  )),
             ),
-          /*
-          Padding(
-            padding: const EdgeInsets.only(left: 32),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-              child: Container(
-                width: 60,
-                height: 80,
-                padding: const EdgeInsets.all(5),
-                // color: const Color(0xffff3737),
-                color: Colors.black26,
-                child: Imag)e.f_ile(
-                  File.fromUri(
-                    Uri.parse("assets/tiles/${Tiles.getSingle()}.png"),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          */
         ],
       ),
     );

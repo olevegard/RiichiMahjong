@@ -55,7 +55,6 @@ class _GridState extends State<Grid> {
     }
 
     widget.tiles.discard(player, tile);
-    checkHand(player);
 
     int prevPlayer = activePlayer;
     activePlayer++;
@@ -63,7 +62,21 @@ class _GridState extends State<Grid> {
     if (activePlayer > 3) {
       activePlayer = 0;
     }
-    widget.tiles.takeNextTile(activePlayer);
+
+    bool canAnyonePon = false;
+    for (int i = 0; i < 4; ++i) {
+      if (i == prevPlayer) {
+        continue;
+      }
+
+      if (widget.tiles.canPon(i, prevPlayer)) {
+        canAnyonePon = true;
+      }
+    }
+
+    if (!canAnyonePon) {
+      widget.tiles.takeNextTile(activePlayer);
+    }
 
     setState(() {
       allDiscards[prevPlayer] = widget.tiles.discards[prevPlayer];
@@ -71,8 +84,13 @@ class _GridState extends State<Grid> {
     });
   }
 
+  bool checked = false;
+
   @override
   Widget build(BuildContext context) {
+    checked = false;
+    print("Checky");
+
     // double smallTileFactor = 12;
     // double smallTileFactor = 10;
     // double smallTileWidth = 3 * smallTileFactor;
