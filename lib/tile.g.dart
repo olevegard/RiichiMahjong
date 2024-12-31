@@ -15,6 +15,7 @@ TileModel _$TileModelFromJson(Map<String, dynamic> json) => TileModel(
       suit: $enumDecodeNullable(_$SuitEnumMap, json['suit']),
       number: (json['number'] as num?)?.toInt() ?? 0,
       isDora: json['is_dora'] as bool? ?? false,
+      totalCount: (json['total_count'] as num?)?.toInt() ?? 4,
     );
 
 Map<String, dynamic> _$TileModelToJson(TileModel instance) => <String, dynamic>{
@@ -24,6 +25,7 @@ Map<String, dynamic> _$TileModelToJson(TileModel instance) => <String, dynamic>{
       'suit': _$SuitEnumMap[instance.suit],
       'number': instance.number,
       'is_dora': instance.isDora,
+      'total_count': instance.totalCount,
     };
 
 const _$TypeEnumMap = {

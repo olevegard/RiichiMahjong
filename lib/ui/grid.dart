@@ -9,15 +9,10 @@ class Grid extends StatefulWidget {
   final double screenHeight;
   Tiles tiles = Tiles();
 
-  // final double tileHeight;
-  // final double sidePadding;
-
   Grid({
     super.key,
     required this.screenWidth,
     required this.screenHeight,
-    // required this.tileHeight,
-    // required this.sidePadding,
   });
 
   @override
@@ -42,7 +37,7 @@ class _GridState extends State<Grid> {
     return sb.toString().substring(0, 34);
   }
 
-    @override
+  @override
   void initState() {
     super.initState();
     allHands = widget.tiles.allHands;
@@ -53,6 +48,8 @@ class _GridState extends State<Grid> {
     if (player != activePlayer || !widget.tiles.canDiscard) {
       return;
     }
+
+    print("Player $player discarded $tile ${widget.tiles.allHands[player][tile].realName}");
 
     widget.tiles.discard(player, tile);
 
@@ -89,29 +86,10 @@ class _GridState extends State<Grid> {
   @override
   Widget build(BuildContext context) {
     checked = false;
-    print("Checky");
-
-    // double smallTileFactor = 12;
-    // double smallTileFactor = 10;
-    // double smallTileWidth = 3 * smallTileFactor;
-    // double smallTileHeight = 4 * smallTileFactor;
-
-    // double totalDiscardedTileHeight = smallTileHeight * 6;
-
-    // double playFieldWidth = (screenWidth - (tileHeight * 2)) / 2;
-    //double playFieldWidth = screenWidth;
-    //playFieldWidth -= tileHeight * 2;
-    //playFieldWidth -= totalDiscardedTileHeight;
-    //// playFieldWidth += 6 * smallTileWidth;
-
-    // double tileAreaWidth = 14 * (PlayerPlayfield.tileWidth + 4) + 32;
-    // double tileAreaHeight = PlayerPlayfield.tileHeight + 16;
-    // double playAreaSize = PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
 
     double tileAreaWidth = 15 * (PlayerPlayfield.tileWidth + 4) + 8;
     double tileAreaHeight = PlayerPlayfield.tileHeight + 16;
-    double playAreaSize =
-        PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
+    double playAreaSize = PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
 
     asFormattedDecimal(12312311234);
     return Container(
@@ -222,10 +200,8 @@ class _GridState extends State<Grid> {
                       borderRadius: const BorderRadius.all(Radius.circular(4)),
                       child: Container(
                         padding: EdgeInsets.all(8),
-                        width: playAreaSize -
-                            (PlayerPlayfield.playFieldWidth + 32),
-                        height: playAreaSize -
-                            (PlayerPlayfield.playFieldWidth + 32),
+                        width: playAreaSize - (PlayerPlayfield.playFieldWidth + 32),
+                        height: playAreaSize - (PlayerPlayfield.playFieldWidth + 32),
                         child: Column(
                           children: [
                             Row(
@@ -235,7 +211,7 @@ class _GridState extends State<Grid> {
                                 MaterialButton(
                                   minWidth: 0,
                                   child: Text("Pon"),
-                                  onPressed: () {},
+                                  onPressed: null, //() {},
                                 ),
                                 MaterialButton(
                                   minWidth: 0,

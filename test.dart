@@ -16,9 +16,12 @@ void main() {
     allTiles.add(TileModel.wind(windDirection: WindDirection.south));
 
     for (int j = 1; j <= 9; ++j) {
-      allTiles.add(TileModel.suited(suit: Suit.characters, number: j, isDora: j == 5 && i == 0));
-      allTiles.add(TileModel.suited(suit: Suit.circles, number: j, isDora: j == 5 && i == 0));
-      allTiles.add(TileModel.suited(suit: Suit.bamboo, number: j, isDora: j == 5 && i == 0));
+      allTiles.add(TileModel.suited(
+          suit: Suit.characters, number: j, isDora: j == 5 && i == 0));
+      allTiles.add(TileModel.suited(
+          suit: Suit.circles, number: j, isDora: j == 5 && i == 0));
+      allTiles.add(TileModel.suited(
+          suit: Suit.bamboo, number: j, isDora: j == 5 && i == 0));
     }
   }
 
@@ -44,20 +47,14 @@ void main() {
     suit: Suit.characters,
     number: 2,
   ));
-tiles.add(TileModel.suited(
+  tiles.add(TileModel.suited(
     suit: Suit.characters,
     number: 2,
   ));
-
-
-
-tiles.add(TileModel.suited(
+  tiles.add(TileModel.suited(
     suit: Suit.characters,
     number: 2,
   ));
-
-
-
   tiles.add(TileModel.suited(
     suit: Suit.characters,
     number: 3,
@@ -71,10 +68,6 @@ tiles.add(TileModel.suited(
     number: 3,
   ));
 
-  tiles.add(TileModel.suited(
-    suit: Suit.characters,
-    number: 3,
-  ));
   tiles.add(TileModel.suited(
     suit: Suit.characters,
     number: 4,
@@ -83,10 +76,19 @@ tiles.add(TileModel.suited(
     suit: Suit.characters,
     number: 5,
   ));
+  tiles.add(TileModel.suited(
+    suit: Suit.characters,
+    number: 6,
+  ));
 
   tiles.add(TileModel.suited(
     suit: Suit.characters,
-    number: 9,
+    number: 6,
+  ));
+
+  tiles.add(TileModel.suited(
+    suit: Suit.characters,
+    number: 6,
   ));
 
 /*

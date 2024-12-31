@@ -239,13 +239,17 @@ class TileModel {
           return false;
         }
 
-        return number == 2 || number == 3 || number == 4 || number == 6 || number == 8;
+        return number == 2 ||
+            number == 3 ||
+            number == 4 ||
+            number == 6 ||
+            number == 8;
       case Type.wind:
         return false;
     }
   }
 
-String get shortName {
+  String get shortName {
     switch (type) {
       case Type.dragon:
         switch (dragonColor) {
@@ -347,7 +351,8 @@ String get shortName {
     }
   }
 
-  factory TileModel.fromJson(Map<String, dynamic> json) => _$TileModelFromJson(json);
+  factory TileModel.fromJson(Map<String, dynamic> json) =>
+      _$TileModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$TileModelToJson(this);
 }

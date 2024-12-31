@@ -11,7 +11,7 @@ class Hands {
     required this.hands,
   });
 
-   factory Hands.fromJson(Map<String, dynamic> json) => _$HandsFromJson(json);
+  factory Hands.fromJson(Map<String, dynamic> json) => _$HandsFromJson(json);
 
   Map<String, dynamic> toJson() => _$HandsToJson(this);
 }

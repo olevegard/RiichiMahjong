@@ -28,11 +28,9 @@ class TileWidget extends StatelessWidget {
         color: Colors.black26,
         child: Image.file(
           File.fromUri(
-            Uri.parse(
-            tile.path.isNotEmpty ? 
-            "assets/tiles/${tile.path}"
-            : "assets/misc/Back.png"
-            ),
+            Uri.parse(isVisible && tile.path.isNotEmpty
+                ? "assets/tiles/${tile.path}"
+                : "assets/misc/Back.png"),
           ),
         ),
       ),

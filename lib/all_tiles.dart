@@ -11,7 +11,8 @@ class AllTiles {
     required this.tiles,
   });
 
-   factory AllTiles.fromJson(Map<String, dynamic> json) => _$AllTilesFromJson(json);
+  factory AllTiles.fromJson(Map<String, dynamic> json) =>
+      _$AllTilesFromJson(json);
 
   Map<String, dynamic> toJson() => _$AllTilesToJson(this);
 }

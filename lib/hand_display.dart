@@ -13,8 +13,8 @@ class HandDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(hand.name),
         Text(hand.description),
