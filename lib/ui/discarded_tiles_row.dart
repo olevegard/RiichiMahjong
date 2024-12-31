@@ -24,26 +24,27 @@ class PlayerPlayfield extends StatelessWidget {
   });
 
   static const double sidePadding = 20;
-  static const double smallTileFactor = 10;
+  static const double smallTileFactor = 8;
   static const double minTileHeight = 4;
   static const double minTileWidth = 3;
   static const double smallTileWidth = minTileWidth * smallTileFactor;
   static const double smallTileHeight = minTileHeight * smallTileFactor;
 
-  static const double bigTileFactor = 20;
+  static const double bigTileFactor = 14;
   // static const double tileHeight = 85;
   static const double tileWidth = minTileWidth * bigTileFactor;
   static const double tileHeight = minTileHeight * bigTileFactor;
 
   static const double leftPadding = 8;
   static const double totalDiscardedTileHeight = (smallTileHeight * 6) + 14;
-  static const double width = 1150;
-  static const double playFieldWidth = totalDiscardedTileHeight + (smallTileWidth * 10);
+  static const double width = tileWidth * 25;
+  static const double playFieldWidth =
+      totalDiscardedTileHeight + (smallTileWidth * 10);
 
   // static double playFieldWidth = width - (tileHeight * 2) - totalDiscardedTileHeight - ( leftPadding * 2);
   @override
   Widget build(BuildContext context) {
-  /*
+    /*
     double playFieldWidth = width;
     // playFieldWidth -= tileHeight * 2;
     playFieldWidth -= smallTileHeight * 2;
@@ -117,6 +118,7 @@ class DiscardedTilesRow extends StatelessWidget {
                 for (TileModel tile in discardedTiles)
                   TileWidget(
                     tile: tile,
+                    isVisible: true,
                     width: PlayerPlayfield.smallTileWidth,
                     height: PlayerPlayfield.smallTileHeight,
                   ),

@@ -13,6 +13,7 @@ class HandWithTilesWrapper extends StatelessWidget {
   final Alignment alignment;
   final int quarterTurns;
   final bool activePlayer;
+  final bool tilesVisible;
 
   const HandWithTilesWrapper({
     super.key,
@@ -23,22 +24,28 @@ class HandWithTilesWrapper extends StatelessWidget {
     required this.alignment,
     required this.quarterTurns,
     required this.activePlayer,
+    required this.tilesVisible,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: alignment,
-      child: RotatedBox(
-        quarterTurns: quarterTurns,
-        child: Container(
-          alignment: Alignment.center,
-          color: activePlayer ? Colors.green : Colors.transparent,
-          width: width,
-          height: height * 1,
-          child: HandWithTiles(
-            tiles: tiles,
-            onTileTapped: onTileTapped,
+    return LimitedBox(
+      child: Align(
+        alignment: alignment,
+        child: RotatedBox(
+          quarterTurns: quarterTurns,
+          child: Container(
+            alignment: Alignment.center,
+            color: activePlayer
+                ? Colors.green
+                : Colors.green.withValues(alpha: 0.3),
+            width: width,
+            height: height * 1,
+            child: HandWithTiles(
+              tiles: tiles,
+              isVisible: tilesVisible,
+              onTileTapped: onTileTapped,
+            ),
           ),
         ),
       ),
@@ -51,6 +58,7 @@ class HandWithTiles extends StatelessWidget {
   final List<TileModel> tiles;
   final double width;
   final double height;
+  final bool isVisible;
 
   const HandWithTiles({
     super.key,
@@ -58,6 +66,7 @@ class HandWithTiles extends StatelessWidget {
     required this.onTileTapped,
     this.width = PlayerPlayfield.tileWidth,
     this.height = PlayerPlayfield.tileHeight,
+    required this.isVisible,
   });
   @override
   Widget build(BuildContext context) {

@@ -5,12 +5,14 @@ import 'package:riichi/tile.dart';
 
 class TileWidget extends StatelessWidget {
   final TileModel tile;
+  final bool isVisible;
   final double width;
   final double height;
 
   const TileWidget({
     super.key,
     required this.tile,
+    required this.isVisible,
     required this.width,
     required this.height,
   });

@@ -104,10 +104,14 @@ class _GridState extends State<Grid> {
     //playFieldWidth -= totalDiscardedTileHeight;
     //// playFieldWidth += 6 * smallTileWidth;
 
-    double tileAreaWidth = 14 * (PlayerPlayfield.tileWidth + 4) + 32;
-    double tileAreaHeight = PlayerPlayfield.tileHeight + 16;
-    double playAreaSize = PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
+    // double tileAreaWidth = 14 * (PlayerPlayfield.tileWidth + 4) + 32;
+    // double tileAreaHeight = PlayerPlayfield.tileHeight + 16;
+    // double playAreaSize = PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
 
+    double tileAreaWidth = 15 * (PlayerPlayfield.tileWidth + 4) + 8;
+    double tileAreaHeight = PlayerPlayfield.tileHeight + 16;
+    double playAreaSize =
+        PlayerPlayfield.width - (PlayerPlayfield.width - tileAreaWidth);
 
     asFormattedDecimal(12312311234);
     return Container(
@@ -117,20 +121,22 @@ class _GridState extends State<Grid> {
       child: Stack(
         children: [
           HandWithTilesWrapper(
-            quarterTurns: 2,
+            quarterTurns: 0,
+            tilesVisible: true,
             activePlayer: activePlayer == 0,
-            alignment: Alignment.topCenter,
+            alignment: Alignment.bottomCenter,
             onTileTapped: (int i) {
               discard(0, i);
             },
             tiles: allHands[0],
             width: tileAreaWidth,
             height: tileAreaHeight,
-            // screenWidth - (PlayerPlayfield.sidePadding * 2),
           ),
 
           HandWithTilesWrapper(
             quarterTurns: 3,
+            tilesVisible: true,
+            // tilesVisible: false,
             activePlayer: activePlayer == 1,
             alignment: Alignment.centerRight,
             onTileTapped: (int i) {
@@ -142,24 +148,25 @@ class _GridState extends State<Grid> {
             // width: screenWidth - (PlayerPlayfield.sidePadding * 2),
             // height: PlayerPlayfield.tileHeight + 2,
           ),
-
           HandWithTilesWrapper(
-            quarterTurns: 0,
+            tilesVisible: true,
+            // tilesVisible: false,
+            quarterTurns: 2,
             activePlayer: activePlayer == 2,
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.topCenter,
             onTileTapped: (int i) {
               discard(2, i);
             },
             tiles: allHands[2],
-
             width: tileAreaWidth,
             height: tileAreaHeight,
-            // width: screenWidth - (PlayerPlayfield.sidePadding * 2),
-            // height: PlayerPlayfield.tileHeight + 2,
           ),
+
           HandWithTilesWrapper(
             quarterTurns: 1,
             activePlayer: activePlayer == 3,
+            tilesVisible: true,
+            // tilesVisible: false,
             alignment: Alignment.centerLeft,
             onTileTapped: (int i) {
               discard(3, i);
@@ -168,15 +175,13 @@ class _GridState extends State<Grid> {
 
             width: tileAreaWidth,
             height: tileAreaHeight,
-            // width: screenWidth - (PlayerPlayfield.sidePadding * 2),
-            // height: PlayerPlayfield.tileHeight + 2,
           ),
 
           // Playfield
           Align(
             alignment: Alignment.center,
             child: Container(
-              color: Colors.transparent,
+              color: Colors.red.withOpacity(0.2),
               width: playAreaSize,
               height: playAreaSize,
               // width: screenWidth - (tileAreaHeight  * 2)  - 4,
@@ -185,8 +190,8 @@ class _GridState extends State<Grid> {
                 children: [
                   PlayerPlayfield(
                     discardedTiles: allDiscards[0],
-                    quarterTurns: 2,
-                    alignment: Alignment.topLeft,
+                    quarterTurns: 0,
+                    alignment: Alignment.bottomRight,
                     // tileHeight: tileHeight,
                     // width: screenWidth,
                   ),
@@ -199,8 +204,8 @@ class _GridState extends State<Grid> {
                   ),
                   PlayerPlayfield(
                     discardedTiles: allDiscards[2],
-                    quarterTurns: 0,
-                    alignment: Alignment.bottomRight,
+                    quarterTurns: 2,
+                    alignment: Alignment.topLeft,
                     // tileHeight: tileHeight,
                     // width: screenWidth,
                   ),
@@ -217,9 +222,10 @@ class _GridState extends State<Grid> {
                       borderRadius: const BorderRadius.all(Radius.circular(4)),
                       child: Container(
                         padding: EdgeInsets.all(8),
-                        width: 300,
-                        height: 300,
-                        color: Colors.green,
+                        width: playAreaSize -
+                            (PlayerPlayfield.playFieldWidth + 32),
+                        height: playAreaSize -
+                            (PlayerPlayfield.playFieldWidth + 32),
                         child: Column(
                           children: [
                             Row(
