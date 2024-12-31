@@ -327,6 +327,15 @@ String get shortName {
     }
   }
 
+  String get id {
+    String id = realName;
+    if (isDora) {
+      id += "_dora";
+    }
+
+    return id;
+  }
+
   String get path {
     switch (type) {
       case Type.dragon:
